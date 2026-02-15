@@ -4,7 +4,7 @@
 
 **Soft Colors. Sharp Logic.**
 
-LatteLogic uses the soft, eye-friendly palette of [AnuPpuccin](https://www.google.com/search?q=https://github.com/AnubisNekhet/AnuPpuccin) combined with a rigorous, engineering-grade structural design. It features a unique "Step-Down" header system to visualize document hierarchy and fully supports Obsidian's native Accent Color settings.
+LatteLogic uses a soft, eye-friendly palette combined with a rigorous, engineering-grade structural design. It features a unique "Step-Down" header system to visualize document hierarchy and fully supports Obsidian's native Accent Color settings.
 
 ## Installation
 
@@ -21,7 +21,7 @@ LatteLogic uses the soft, eye-friendly palette of [AnuPpuccin](https://www.googl
 You can also install via the [BRAT plugin](https://www.google.com/search?q=https://github.com/TfTHacker/obsidian42-brat).
 
 1. Install **Obsidian 42 - BRAT** from the Community Plugins.
-2. Add the repository URL: `https://github.com/yourname/lattelogic`.
+2. Add the repository URL: `https://github.com/kinn00kinn/LatteLogic`.
 3. Enable the theme in Appearance settings.
 
 ## Key Features
@@ -42,7 +42,7 @@ Unlike themes that prioritize decoration, LatteLogic prioritizes **structure**.
 
 - **Source Mode First:** We believe the plain text editor should be as beautiful as the preview. Headers in Source Mode are highlighted with subtle background colors and bold text.
 - **Consistent Lists:** Bullet points use the text color rather than the accent color, keeping the focus on the content, not the markers.
-- **Contextual Visibility:** Tab active states are clearly marked with a top border (AnuPpuccin style), reducing visual noise while maintaining context.
+- **Contextual Visibility:** Tab active states are clearly marked with a top border, reducing visual noise while maintaining context.
 
 ## Color Schemes
 
