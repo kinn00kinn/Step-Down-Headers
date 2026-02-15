@@ -1,184 +1,242 @@
 /*
- * Obsidian Theme: Step-Down Headers
- * Description: Clarifies hierarchy using vertical bars, indentation, underlines, and font sizes.
- *              Includes support for both Reading (Preview) and Editing (Live Preview) modes.
+ * Obsidian Theme: Step-Down Dynamic (User Accent)
+ * * 1. Step-down headers (Reading & Live Preview only).
+ * 2. Rounded corners (Default Obsidian style).
+ * 3. Dynamic Colors: Uses your Obsidian 'Accent Color' setting.
+ * 4. Backgrounds: AnuPpuccin-inspired base (Latte/Macchiato).
  */
 
 /* ==========================================================================
-   Base Theme Settings (Sharp corners aesthetic)
+   1. Theme Variables (Backgrounds & Dynamic Accents)
    ========================================================================== */
-body {
-	--radius-s: 0px;
-	--radius-m: 0px;
-	--radius-l: 0px;
-	--input-radius: 0px;
-	--tab-radius-active: 0px;
-	--checkbox-radius: 0px;
-	--toggle-radius: 0px;
-	--toggle-thumb-radius: 0px;
-	--slider-thumb-radius: 0px;
+
+/* Dark Mode (Macchiato Base) */
+.theme-dark {
+	/* Backgrounds */
+	--background-primary: #24273a;
+	--background-primary-alt: #1e2030;
+	--background-secondary: #181926;
+	--background-secondary-alt: #181926;
+	--background-modifier-border: #363a4f;
+	--background-modifier-hover: rgba(202, 211, 245, 0.1);
+
+	/* Text */
+	--text-normal: #cad3f5;
+	--text-muted: #939ab7;
+	--text-faint: #5b6078;
+
+	/* Code */
+	--code-background: #1e2030;
+	--code-normal: #cad3f5;
 }
 
-/* Remove active tab indicators for a cleaner look */
-.workspace-tab-header.is-active::before, 
+/* Light Mode (Latte Base) */
+.theme-light {
+	/* Backgrounds */
+	--background-primary: #eff1f5;
+	--background-primary-alt: #e6e9ef;
+	--background-secondary: #e6e9ef;
+	--background-secondary-alt: #e6e9ef;
+	--background-modifier-border: #bcc0cc;
+	--background-modifier-hover: rgba(76, 79, 105, 0.1);
+
+	/* Text */
+	--text-normal: #4c4f69;
+	--text-muted: #6c6f85;
+	--text-faint: #9ca0b0;
+
+	/* Code */
+	--code-background: #dce0e8;
+	--code-normal: #4c4f69;
+}
+
+/* NOTE: We do NOT override --interactive-accent here. 
+   This allows the "Accent Color" picker in Obsidian settings to work.
+*/
+
+/* ==========================================================================
+   2. Base Settings (Rounded & Modern)
+   ========================================================================== */
+body {
+	/* Typography */
+	--font-text-size: 16px;
+	--line-height-normal: 1.6;
+	--font-monospace:
+		"源ノ角ゴシック", "JetBrains Mono", "Fira Code", monospace;
+
+	/* Radius settings removed to allow Obsidian defaults (rounded).
+       If you want to customize roundness, uncomment and adjust:
+       --radius-s: 4px;
+       --radius-m: 8px;
+    */
+}
+
+/* Cleaner Tabs (AnuPpuccin Style) */
+.workspace-tab-header.is-active::before,
 .workspace-tab-header.is-active::after {
 	display: none;
 }
 
-/* Sharp corners for SVG elements */
-svg * {
-	stroke-linecap: square;
-	stroke-linejoin: miter;
-	rx: 0;
-	ry: 0;
+.workspace-tab-header.is-active {
+	background-color: var(--background-primary);
+	/* Use the user's accent color for the tab indicator */
+	border-top: 3px solid var(--interactive-accent);
+	font-weight: 600;
 }
 
 /* Menu Spacing */
 .menu {
 	padding: var(--size-2-1);
 }
-
 .menu-item {
 	padding: var(--size-4-1) var(--size-4-2);
 }
-
 .menu-separator {
 	margin: var(--size-2-1) calc(var(--size-2-1) * -1);
 }
 
 /* ==========================================================================
-   Header Styles (Step-Down Design)
-   Feature: Uses padding-left for indentation (no negative margins).
+   3. Header Styles (Reading Mode & Live Preview ONLY)
+   Excluded: Source Mode (plain editor)
    ========================================================================== */
 
-/* --- Common Styles for Headers --- */
-/* Targeting Reading View (h1-h6) and Live Preview (.HyperMD-header) */
-:is(.markdown-preview-view h1, .markdown-preview-view h2, .markdown-preview-view h3, .markdown-preview-view h4, .markdown-preview-view h5, .markdown-preview-view h6),
-:is(.markdown-source-view .HyperMD-header) {
-	/* Vertical Bar Style */
+:is(
+	.markdown-preview-view h1,
+	.markdown-preview-view h2,
+	.markdown-preview-view h3,
+	.markdown-preview-view h4,
+	.markdown-preview-view h5,
+	.markdown-preview-view h6,
+	.is-live-preview .HyperMD-header
+) {
 	border-left-style: solid;
-	border-left-color: var(--text-normal); /* Default color, overridden by specific levels */
-	
-	/* Reset & Spacing */
 	border-top: none;
-	margin-left: 0; /* Reset margin to prevent overflow */
+	margin-left: 0;
 	padding-top: 0.2em;
 	padding-bottom: 0.4em;
 	margin-top: 1.5em;
 	line-height: 1.3;
-	
-	/* Smooth Transition for hover effects */
-	transition: border-left-color 0.2s ease, padding-left 0.2s ease, background-color 0.2s ease;
+	transition: all 0.2s ease;
 }
 
-/* Hover Effect: Highlight the vertical bar */
-:is(.markdown-preview-view h1, .markdown-preview-view h2, .markdown-preview-view h3, .markdown-preview-view h4, .markdown-preview-view h5, .markdown-preview-view h6):hover,
-:is(.markdown-source-view .HyperMD-header):hover {
-	border-left-color: var(--interactive-accent-hover);
-}
+/* Header Colors Mapped to User Accent 
+   --text-accent is usually the same as --interactive-accent but for text.
+*/
 
-/* --- H1 (Title/Top Level) --- */
-:is(.markdown-preview-view h1, .markdown-source-view .HyperMD-header-1) {
+/* H1 (Title) - Strong Accent */
+:is(.markdown-preview-view h1, .is-live-preview .HyperMD-header-1) {
 	font-size: 1.8em;
 	font-weight: 700;
-	
+
+	color: var(--text-normal);
 	border-left-width: 8px;
 	border-left-color: var(--interactive-accent);
-	
+
 	padding-left: 0.5em;
-	
 	border-bottom: 2px solid var(--background-modifier-border);
 }
 
-/* --- H2 (Chapter) --- */
-:is(.markdown-preview-view h2, .markdown-source-view .HyperMD-header-2) {
+/* H2 (Chapter) - Strong Accent */
+:is(.markdown-preview-view h2, .is-live-preview .HyperMD-header-2) {
 	font-size: 1.6em;
 	font-weight: 600;
-	margin-top: 2.5em;
-	
+
+	color: var(--text-normal);
 	border-left-width: 6px;
-	border-left-color: var(--text-accent);
-	
+	border-left-color: var(--interactive-accent);
+
+	margin-top: 2em;
 	padding-left: 0.8em;
-	
 	border-bottom: 1px solid var(--background-modifier-border);
 }
 
-/* --- H3 (Section) --- */
-:is(.markdown-preview-view h3, .markdown-source-view .HyperMD-header-3) {
+/* H3 (Section) - Text Color with Accent Border */
+:is(.markdown-preview-view h3, .is-live-preview .HyperMD-header-3) {
 	font-size: 1.4em;
 	font-weight: 600;
-	
+
+	color: var(--text-normal); /* Slightly quieter than H1/H2 */
 	border-left-width: 4px;
-	border-left-color: var(--text-normal);
-	
+	border-left-color: var(
+		--interactive-accent
+	); /* Keep accent for hierarchy */
+
 	padding-left: 1.1em;
-	
 	border-bottom: 1px dotted var(--text-faint);
 }
 
-/* --- H4 (Subsection) --- */
-:is(.markdown-preview-view h4, .markdown-source-view .HyperMD-header-4) {
+/* H4 (Subsection) - Muted Border */
+:is(.markdown-preview-view h4, .is-live-preview .HyperMD-header-4) {
 	font-size: 1.2em;
 	font-weight: 600;
-	
+
+	color: var(--text-normal);
 	border-left-width: 3px;
-	border-left-color: var(--text-faint);
-	
+	border-left-color: var(--text-faint); /* Drop accent for lower levels */
+
 	padding-left: 1.4em;
-	
 	border-bottom: 1px dotted var(--text-faint);
 }
 
-/* --- H5 --- */
-:is(.markdown-preview-view h5, .markdown-source-view .HyperMD-header-5) {
+/* H5 */
+:is(.markdown-preview-view h5, .is-live-preview .HyperMD-header-5) {
 	font-size: 1.1em;
 	font-weight: 500;
-	margin-top: 1.0em;
-	
+
+	color: var(--text-muted);
 	border-left-width: 2px;
 	border-left-color: var(--text-muted);
-	
+
 	padding-left: 1.7em;
-	
-	border-bottom: none;
 }
 
-/* --- H6 --- */
-:is(.markdown-preview-view h6, .markdown-source-view .HyperMD-header-6) {
-	font-size: 1.0em;
+/* H6 */
+:is(.markdown-preview-view h6, .is-live-preview .HyperMD-header-6) {
+	font-size: 1em;
 	font-weight: 500;
-	margin-top: 1.0em;
-	
+
+	color: var(--text-muted);
 	border-left-width: 2px;
 	border-left-color: var(--text-muted);
-	
-	padding-left: 2.0em;
-	
-	border-bottom: none;
-	color: var(--text-muted); /* Dim the text color for H6 */
+
+	padding-left: 2em;
+}
+
+/* Hover Effects */
+:is(
+	.markdown-preview-view h1,
+	.is-live-preview .HyperMD-header-1,
+	.markdown-preview-view h2,
+	.is-live-preview .HyperMD-header-2
+):hover {
+	/* Subtle gradient using the hover modifier */
+	background: linear-gradient(
+		to right,
+		var(--background-modifier-hover),
+		transparent
+	);
 }
 
 /* ==========================================================================
-   Visual Enhancements (Ingenuity)
+   4. Live Preview Specific Tweaks
    ========================================================================== */
-
-/* H1 & H2 Hover: Subtle gradient background to emphasize major sections */
-:is(.markdown-preview-view h1, .markdown-source-view .HyperMD-header-1):hover,
-:is(.markdown-preview-view h2, .markdown-source-view .HyperMD-header-2):hover {
-	background: linear-gradient(to right, var(--background-modifier-hover), transparent);
-}
-
-/* Live Preview: Dim the markdown hash characters for cleaner reading */
-.markdown-source-view .cm-formatting-header {
-	opacity: 0.25;
+.is-live-preview .cm-formatting-header {
+	opacity: 0.3;
 	font-weight: normal;
-	margin-right: 0.2em;
+	font-size: 0.8em;
+	margin-right: 0.5em;
+	color: var(--text-muted);
 }
 
-/* Print Optimization: Remove background modifications when printing */
-@media print {
-	:is(.markdown-preview-view h1, .markdown-preview-view h2) {
-		border-bottom-color: #000;
-	}
+/* ==========================================================================
+   5. Source Mode Overrides (Safety Net)
+   ========================================================================== */
+.markdown-source-view:not(.is-live-preview) .HyperMD-header {
+	border-left: none !important;
+	padding-left: 0 !important;
+	margin-left: 0 !important;
+	background: none !important;
+	border-bottom: none !important;
+	/* Use accent color for text in source mode to differentiate headers */
+	color: var(--text-accent);
 }
