@@ -66,9 +66,6 @@ LatteLogic is built to be lightweight and compatible with most plugins. It speci
 
 If you find a bug or have a suggestion to improve the "Logic," strictly feel free to open a pull request or issue.
 
-## License
-
-LatteLogic is licensed under the MIT License. You are free to modify and redistribute the code, provided you preserve the copyright and license notice.
 
 ## Disclaimer
 
